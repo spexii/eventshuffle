@@ -1,3 +1,13 @@
+# Django library imports
 from django.contrib import admin
 
-# Register your models here.
+# Local application imports
+from .models import Event
+
+
+class EventAdmin(admin.ModelAdmin):
+
+    fields = ['name']
+    list_display = ['name']
+
+admin.site.register(Event, EventAdmin)
