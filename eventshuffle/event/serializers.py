@@ -37,3 +37,19 @@ class EventRetrieveSerializer(serializers.HyperlinkedModelSerializer):
         Get the votes for the event dates.
         """
         return obj.get_votes()
+
+class EventRetrieveResultSerializer(serializers.HyperlinkedModelSerializer):
+    """
+    Serializer for single event containing the results of voting.
+    """
+    suitable_dates = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Event
+        fields = ["id", "name", "suitable_dates"]
+
+    def get_suitable_dates(self, obj):
+        """
+        Get the votes for the event dates.
+        """
+        return obj.get_votes(suitable_for_all=True)

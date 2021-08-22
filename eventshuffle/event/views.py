@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 # Local application imports
 from .models import Event
-from .serializers import EventListSerializer, EventRetrieveSerializer
+from .serializers import EventListSerializer, EventRetrieveSerializer, EventRetrieveResultSerializer
 
 class EventViewSet(viewsets.ModelViewSet):
     """
@@ -25,3 +25,16 @@ class EventViewSet(viewsets.ModelViewSet):
             return EventRetrieveSerializer
 
         return EventListSerializer
+
+    @action(detail=True, methods=['get'])
+    def results(self, request, pk):
+        """A custom action view to display event voting results.
+
+        Returns:
+            Response: The serialized voting result view
+        """
+        event = self.get_object()
+
+        serializer = EventRetrieveResultSerializer(event, context={'request': request})
+
+        return Response(serializer.data)
