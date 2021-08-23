@@ -2,7 +2,8 @@
 from rest_framework import serializers
 
 # Local application imports
-from .models import Event
+from .functions import validate_dates
+from .models import Event, EventDate
 
 
 class EventListSerializer(serializers.HyperlinkedModelSerializer):
@@ -13,6 +14,32 @@ class EventListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
         fields = ["id", "name"]
+
+    def create(self, validated_data):
+        # Access the dates in post data with the initial data. The
+        # validated data doesn't have those, since dates is not a
+        # field of Event model.
+        dates = self.initial_data.pop("dates", None)
+
+        error = validate_dates(dates)
+
+        # If date validation results to an error, abort event creation
+        if error:
+            raise serializers.ValidationError(error)
+
+        # Create the event
+        event = Event.objects.create(**validated_data)
+
+        # Add the date(s) for the event
+        try:
+            for date_str in dates:
+                event_date = EventDate.objects.create(event=event, date=date_str)
+        except Exception as e:
+            # In case of error the event creation is rolled back
+            event.delete()
+            raise serializers.ValidationError(f"Event creating failed! Error: {e}")
+
+        return event
 
 
 class EventRetrieveSerializer(serializers.HyperlinkedModelSerializer):
