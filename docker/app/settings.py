@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-!4q1lmqg3v%2o88_3i+c_k=ks_-u_8$!kud+508rm!t_nh)pfs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '0.0.0.0', 'eventshuffle.spexi.dev']
 
 
 # Application definition
