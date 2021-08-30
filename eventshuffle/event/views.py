@@ -29,7 +29,7 @@ class EventViewSet(viewsets.ModelViewSet):
         return EventListSerializer
 
     @action(detail=True, methods=['get'])
-    def results(self, request, pk):
+    def results(self, request, version, pk):
         """A custom action view to display event voting results.
 
         Returns:
@@ -42,7 +42,7 @@ class EventViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     @action(detail=True, methods=['post'])
-    def vote(self, request, pk):
+    def vote(self, request, version, pk):
         """A custom action view for voting an event date.
 
         Returns:
