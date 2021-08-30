@@ -1,0 +1,7 @@
+version: '3.6'
+services:
+  app:
+    image: "spexi/eventshuffle_app:latest"
+    ports:
+      - 8000:8000
+    user: eventsfl
