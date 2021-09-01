@@ -42,3 +42,7 @@ $ docker-compose --project-name eventshuffle up
 Now the application is running and API can be found at http://127.0.0.1:8000/api/v1/
 
 **What did the commands do?** The docker container is started up with docker-compose. If the image doesn't exist on your computer, it is downloaded from Docker Hub before starting up the project. The container has everything the project needs. Migrations have been already run and the project is ready to use by just starting it up.
+
+## Usage
+
+This project is based on this: https://gist.github.com/anttti/2b69aebc63687ebf05ec. The API can be used just like described in that link with the exception of the first section "List all events". Events can't be listed with `/api/v1/event/list`, since by default Django REST Framework offers the listing by just navigating to `/api/v1/event/`. There was no point to create another custom action for that listing.
