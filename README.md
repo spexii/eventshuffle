@@ -41,4 +41,4 @@ $ docker-compose --project-name eventshuffle up
 
 Now the application is running and API can be found at http://127.0.0.1:8000/api/v1/
 
-**What did the commands do?** The docker container is started up with docker-compose, and that container has everything the project needs. Migrations have been already run and the project is ready to use by just starting it up.
+**What did the commands do?** The docker container is started up with docker-compose. If the image doesn't exist on your computer, it is downloaded from Docker Hub before starting up the project. The container has everything the project needs. Migrations have been already run and the project is ready to use by just starting it up.
